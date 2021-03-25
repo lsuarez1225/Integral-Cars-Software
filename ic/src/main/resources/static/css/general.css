@@ -1,0 +1,13 @@
+.menu-action-container {
+    margin-bottom: 20px;
+}
+
+.table-responsive {
+    max-height: 720px;
+}
+
+.table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f8f9fc;
+}
