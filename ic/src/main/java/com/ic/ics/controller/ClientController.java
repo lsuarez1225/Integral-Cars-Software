@@ -1,6 +1,7 @@
 package com.ic.ics.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +55,22 @@ public class ClientController {
 		
 		clientService.saveClient(client);
 		
-		response.setStatus("OK AGREGADO");
+		response.setStatus("OK");
 		response.setObject(client);
 		
 		return ResponseEntity.ok(response);
-	}	
+	}
+	
+	@GetMapping(value = "/listVehicles")
+	public ResponseEntity<Object> listVehicles(@RequestParam(name = "id") Long id) {
+		
+		AjaxResponse ajaxResponse = new AjaxResponse();
+		
+		Optional<Client> optionalClient = clientService.getClient(id);
+		
+		ajaxResponse.setStatus("OK");
+		ajaxResponse.setObject(optionalClient);
+		
+		return ResponseEntity.ok(ajaxResponse);
+	}
 }

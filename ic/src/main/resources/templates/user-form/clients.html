@@ -49,17 +49,24 @@
 								<th>Apellidos</th>
 								<th>Teléfono</th>
 								<th>E-Mail</th>
+								<th><i class="fas fa-car"></i></th>
 							</tr>
 							</thead>
 							<tbody id="tableClientsTbody">
 								<tr th:each="client : ${listClients}">
-									<td th:text="${client.nidTypeName}"></td>
+									<td th:text="${client.nidType.name}"></td>
 									<td th:text="${client.nid}"></td>
 									<td th:text="${client.businessName}"></td>
 									<td th:text="${client.firstName}"></td>
 									<td th:text="${client.lastName}"></td>
 									<td th:text="${client.phone1}"></td>
 									<td th:text="${client.email}"></td>
+									<td>
+										<a th:switch="${#lists.size(client.vehicle)}" href="#" th:onclick="ajaxListVehicles([[${client.id}]]);" aria-current="page" data-toggle="modal" data-target="#vehicleModalList">
+											<i th:case="0" class="fas fa-plus" title="Asignar vehículo"></i>
+											<i th:case="*" class="far fa-eye" title="Ver vehículos asignados"></i>
+										</a>
+									</td>
 								</tr>
 							</tbody>
 							</table>
@@ -89,8 +96,11 @@
 	<!-- Fragment logoutModal -->
 	<th:block th:insert="fragments/modals :: logout"></th:block>
 
-	 <!-- Fragment client modal -->
+	<!-- Fragment client modal -->
 	<th:block th:insert="modals/clientModal :: create"></th:block>
+	
+	<!-- Fragment vehicle list modal -->
+	<th:block th:insert="modals/vehicleModal :: list"></th:block>
 
 	<!-- Fragment footer -->
     <th:block th:insert="fragments/footer :: includes"></th:block>

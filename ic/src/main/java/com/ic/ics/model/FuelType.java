@@ -8,17 +8,28 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "\"vehicle_line\"")
-public class VehicleLine {
+@Table(name = "vehicles_fuel_types")
+public class FuelType {
 
 	@Id
-	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@Column(name = "name")
 	private String name;
-
+	
+	public FuelType() {
+		
+	}
+	
+	public FuelType(String name) {
+		this.name = name;
+	}
+	
+	public FuelType(Long id) {
+		this.id = id;
+	}	
+	
 	public long getId() {
 		return id;
 	}

@@ -8,24 +8,28 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "nid_type")
+@Table(name = "nid_types")
 public class NidType {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@Column(name = "name")
 	private String name;
 
 	public NidType() {
 		
 	}
+
+	public NidType(Long id) {
+		this.id = id;
+	}
 	
 	public NidType(String name) {
 		this.name = name;
 	}
-	
+
 	public long getId() {
 		return id;
 	}

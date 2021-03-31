@@ -9,16 +9,16 @@ $(document).ready(function () {
 		event.stopPropagation();
 	
 		if (form.checkValidity()){
-	        peticionAjax();
+	        ajaxSaveClient();
 		}
     });
 
 });
 
-function peticionAjax () {
+function ajaxSaveClient () {
 		
 	var data = {};
-	data["identificationType"] = $("#selectDocumentType").val();
+	data["nidType"] = parseInt($("#selectDocumentType").val());
 	data["nid"] = $("#txtNid").val();
 	data["city"] = $("#selectCity").val();
 	data["businessName"] = $("#txtBusinessName").val();
@@ -56,5 +56,44 @@ function peticionAjax () {
 	
 	request.always(function () {
 		$("#btnSend").prop("disabled", false);
+	});
+}
+
+function ajaxListVehicles(idClient) {
+	
+	var data = {};
+	data["id"] = idClient;
+	
+	$("#tbodyVehicleModalList").html("");
+	
+	var request = $.ajax({
+		url: "/listVehicles",
+		contentType: "application/json",
+		method: "GET",
+		data: data,
+		dataType: 'html',
+		cache: false
+	});
+	 
+	request.done(function( response, textStatus, jqXHR ) {
+		var obj = JSON.parse(response);
+		var objVehicle = obj.object.vehicle; 
+		$.each(objVehicle, function(k, v){
+			$("#tbodyVehicleModalList").append("<tr>");
+			$("#tbodyVehicleModalList").append("<td>"+objVehicle[k].plate+"</td>");
+			$("#tbodyVehicleModalList").append("<td>"+objVehicle[k].vehicleModelLine.vehicleModel.name+"</td>");
+			$("#tbodyVehicleModalList").append("<td>"+objVehicle[k].vehicleModelLine.name+"</td>");
+			$("#tbodyVehicleModalList").append("<td>"+objVehicle[k].yearModel+"</td>");
+			$("#tbodyVehicleModalList").append("</tr>");
+		});
+		
+	});
+	 
+	request.fail(function( jqXHR, textStatus, errorThrown ) {
+		alert( "Request failed: " + textStatus );
+	});
+	
+	request.always(function () {
+		
 	});
 }

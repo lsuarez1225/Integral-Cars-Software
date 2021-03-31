@@ -10,21 +10,32 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "\"vehicle_model_line\"")
+@Table(name = "vehicles_models_lines")
 public class VehicleModelLine {
 
 	@Id
-	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@OneToOne
-	@JoinColumn(name = "model_id", referencedColumnName = "id")
-	private VehicleModel vehicleModel;
+	@Column(name = "name")
+	private String name;
 	
 	@OneToOne
-	@JoinColumn(name = "line_id", referencedColumnName = "id")
-	private VehicleLine vehicleLine;
+	@JoinColumn(name = "vehicle_model_id", referencedColumnName = "id")
+	private VehicleModel vehicleModel;
+	
+	public VehicleModelLine() {
+		
+	}
+	
+	public VehicleModelLine(Long id) {
+		this.id = id;
+	}
+
+	public VehicleModelLine(VehicleModel vehicleModel, String name) {
+		this.vehicleModel = vehicleModel;
+		this.name = name;
+	}
 
 	public long getId() {
 		return id;
@@ -34,6 +45,14 @@ public class VehicleModelLine {
 		this.id = id;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public VehicleModel getVehicleModel() {
 		return vehicleModel;
 	}
@@ -41,13 +60,4 @@ public class VehicleModelLine {
 	public void setVehicleModel(VehicleModel vehicleModel) {
 		this.vehicleModel = vehicleModel;
 	}
-
-	public VehicleLine getVehicleLine() {
-		return vehicleLine;
-	}
-
-	public void setVehicleLine(VehicleLine vehicleLine) {
-		this.vehicleLine = vehicleLine;
-	}
-	
 }

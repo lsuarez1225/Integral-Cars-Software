@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+</head>
+<body>
+
+<!-- Modal -->
+<div class="modal fade" id="vehicleModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" th:fragment="create">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">Creación de Vehículo</h5>
+				<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form id="modalVehicleForm" action="#" th:action="@{/saveVehicle}" method="POST" class="needs-validation" novalidate>
+				<div class="modal-body">
+				
+					<div class="row">
+						<div class="col col-sm-12 col-md-6">
+							<div class="mb-3">
+								<label for="txtPlate" class="form-label">Placa</label>
+								<input type="text" class="form-control" id="txtPlate" required>
+								<div class="valid-feedback">Va bien!</div>
+								<div class="invalid-feedback">Ingrese el valor!</div>
+							</div>
+						</div>
+						
+						<div class="col col-sm-12 col-md-6">
+							<div class="mb-3">
+								<label for="txtYearModel" class="form-label">Modelo (Año)</label>
+								<input type="number" class="form-control" id="txtYearModel" min="1900" max="2099" step="1" required>
+								<div class="valid-feedback">Va bien!</div>
+								<div class="invalid-feedback">Ingrese el valor!</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col col-sm-12 col-md-6">
+							<div class="mb-3">
+								<label for="selectModel" class="form-label">Modelo</label>
+								<select class="custom-select" id="selectModel" required>
+									<option selected></option>
+									<option th:each="vehicleModel : ${listVehicleModels}" th:value="${vehicleModel.id}" th:text="${vehicleModel.name}"></option>
+								</select>
+							</div>
+						</div>
+						
+						<div class="col col-sm-12 col-md-6">
+							<div class="mb-3">
+								<label for="selectLine" class="form-label">Línea</label>
+								<select class="custom-select" id="selectLine" required>
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col col-sm-12 col-md-6">
+							<div class="mb-3">
+								<label for="txtColor" class="form-label">Color</label>
+								<input type="color" class="form-control" id="txtColor" required>
+								<div class="valid-feedback">Va bien!</div>
+								<div class="invalid-feedback">Ingrese el valor!</div>
+							</div>
+						</div>
+						
+						<div class="col col-sm-12 col-md-6">
+							<label for="selectFuelType" class="form-label">Tipo de Combustible</label>
+							<select class="custom-select" id="selectFuelType" required>
+								<option selected></option>
+								<option th:each="fuelType : ${listFuelTypes}" th:value="${fuelType.id}" th:text="${fuelType.name}"></option>
+							</select>
+							<div class="valid-feedback">Va bien!</div>
+							<div class="invalid-feedback">Seleccione el valor!</div>
+						</div>
+					</div>
+				
+					<div class="row">
+						<div class="col col-sm-12 col-md-6">
+							<div class="mb-3">
+								<label for="txtMotorNumber" class="form-label">Número de Motor</label>
+								<input type="text" class="form-control" id="txtMotorNumber">
+								<div class="valid-feedback">Va bien!</div>
+								<div class="invalid-feedback">Ingrese el valor!</div>
+							</div>
+						</div>
+						
+						<div class="col col-sm-12 col-md-6">
+							<div class="mb-3">
+								<label for="txtChassisNumber" class="form-label">Número de Chasis</label>
+								<input type="text" class="form-control" id="txtChassisNumber">
+								<div class="valid-feedback">Va bien!</div>
+								<div class="invalid-feedback">Ingrese el valor!</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="mb-3" id="ajaxResponseContainer"></div>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<button type="submit" id="btnSend" class="btn btn-primary">Crear</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- List Modal -->
+<div class="modal fade" id="vehicleModalList" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" th:fragment="list">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">Listado de Vehículo</h5>
+				<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body table-responsive" id="divTableContainer">
+				<table class="table table-striped">
+				<thead>
+				<tr>
+					<th>Placa</th>
+					<th>Modelo</th>
+					<th>Línea</th>
+					<th>Modelo (Año)</th>
+				</tr>
+				</thead>
+				<tbody id="tbodyVehicleModalList"></tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

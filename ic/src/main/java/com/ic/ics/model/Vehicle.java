@@ -10,11 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "\"vehicle\"")
+@Table(name = "vehicles")
 public class Vehicle {
 
 	@Id
@@ -25,7 +26,7 @@ public class Vehicle {
 	@Column(name = "plate")
 	private String plate;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "vehicle_model_line_id", referencedColumnName = "id")
 	private VehicleModelLine vehicleModelLine;	
 	
@@ -41,11 +42,18 @@ public class Vehicle {
 	@Column(name = "motor_number")
 	private String motorNumber;
 	
-	@Column(name = "fuel_type")
-	private String fuelType;
+	@ManyToOne
+	@JoinColumn(name = "fuel_type_id", referencedColumnName = "id")
+	private FuelType fuelType;
 	
 	@Column(name = "dateCreated", nullable = false, columnDefinition = "date DEFAULT 'now()'")
 	private LocalDate dateCreated = ZonedDateTime.now(ZoneId.of("America/Bogota")).toLocalDate();
+	
+	/*
+	@ManyToOne
+	@JoinTable(name = "clients_vehicles", joinColumns = @JoinColumn(name = "vehicle_id"), inverseJoinColumns = @JoinColumn(name = "client_id"))
+	private Client client;
+	*/
 
 	public long getId() {
 		return id;
@@ -103,11 +111,11 @@ public class Vehicle {
 		this.motorNumber = motorNumber;
 	}
 
-	public String getFuelType() {
+	public FuelType getFuelType() {
 		return fuelType;
 	}
 
-	public void setFuelType(String fuelType) {
+	public void setFuelType(FuelType fuelType) {
 		this.fuelType = fuelType;
 	}
 
@@ -118,5 +126,14 @@ public class Vehicle {
 	public void setDateCreated(LocalDate dateCreated) {
 		this.dateCreated = dateCreated;
 	}
-	
+
+	/*
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+	*/
 }

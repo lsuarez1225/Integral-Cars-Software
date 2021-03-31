@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+</head>
+<body>
+
+<!-- Modal -->
+<div class="modal fade" id="workOrderModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" th:fragment="create">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">Creación de Órden de Trabajo</h5>
+				<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form id="modalWorkOrderForm" action="#" th:action="@{/saveWorkOrder}" method="POST" class="needs-validation" novalidate>
+				<div class="modal-body">
+				
+					<div class="row">
+						<div class="col col-sm-12 col-md-6">
+							<div class="mb-3">
+								<label for="selectDocumentType" class="form-label">Tipo Documento</label>
+								<select class="custom-select" id="selectDocumentType" required>
+									<option></option>
+									<option value="1">Cédula</option>
+									<option value="2">NIT</option>
+								</select>
+							</div>
+						</div>
+						<div class="col col-sm-12 col-md-6">
+							<div class="mb-3">
+								<label for="txtNid" class="form-label">No. Documento</label>
+								<input type="text" class="form-control" id="txtNid" required>
+								<div class="valid-feedback">Va bien!</div>
+								<div class="invalid-feedback">Ingrese el valor!</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col col-sm-12 col-md-6">
+							<div class="mb-3">
+								<label for="selectCity" class="form-label">Ciudad</label>
+								<select class="custom-select" id="selectCity" required>
+									<option></option>
+									<option value="1">Bogotá</option>
+									<option value="2">Medellín</option>
+								</select>
+							</div>
+						</div>
+						<div class="col col-sm-12 col-md-6">
+							<div class="mb-3">
+								<label for="txtBusinessName" class="form-label">Razón Social</label>
+								<input type="text" class="form-control" id="txtBusinessName">
+								<div class="valid-feedback">Va bien!</div>
+								<div class="invalid-feedback">Ingrese el valor!</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="mb-3">
+							<label for="txtDrections" class="form-label">Dirección</label>
+							<input type="text" class="form-control" id="txtDrections" required>
+							<div class="valid-feedback">Va bien!</div>
+							<div class="invalid-feedback">Ingrese el valor!</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col col-sm-12 col-md-6">
+							<div class="mb-3">
+								<label for="txtFirstName" class="form-label">Nombres</label>
+								<input type="text" class="form-control" id="txtFirstName" required>
+								<div class="valid-feedback">Va bien!</div>
+								<div class="invalid-feedback">Ingrese el valor!</div>
+							</div>
+						</div>
+						
+						<div class="col col-sm-12 col-md-6">
+							<div class="mb-3">
+								<label for="txtLastName" class="form-label">Apellidos</label>
+								<input type="text" class="form-control" id="txtLastName" required>
+								<div class="valid-feedback">Va bien!</div>
+								<div class="invalid-feedback">Ingrese el valor!</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="mb-3">
+							<label for="txtContactName" class="form-label">Contacto</label>
+							<input type="text" class="form-control" id="txtContactName">
+							<div class="valid-feedback">Va bien!</div>
+							<div class="invalid-feedback">Ingrese el valor!</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col col-sm-12 col-md-6">
+							<div class="mb-3">
+								<label for="txtPhone1" class="form-label">Teléfono 1</label>
+								<input type="text" class="form-control" id="txtPhone1" required>
+								<div class="valid-feedback">Va bien!</div>
+								<div class="invalid-feedback">Ingrese el valor!</div>
+							</div>
+						</div>
+						<div class="col col-sm-12 col-md-6">
+							<div class="mb-3">
+								<label for="txtPhone2" class="form-label">Teléfono 2</label>
+								<input type="text" class="form-control" id="txtPhone2">
+								<div class="valid-feedback">Va bien!</div>
+								<div class="invalid-feedback">Ingrese el valor!</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col col-sm-12 col-md-6">
+							<div class="mb-3">
+								<label for="txtEmail" class="form-label">Correo electrónico</label>
+								<input type="email" class="form-control" id="txtEmail" aria-describedby="emailHelp" required>
+								<div class="valid-feedback">Va bien!</div>
+								<div class="invalid-feedback">Ingrese un correo electrónico válido!</div>
+							</div>
+						</div>
+						<div class="col col-sm-12 col-md-6">
+							<div class="mb-3">
+								<label for="txtWeb" class="form-label">URL Web</label>
+								<input type="text" class="form-control" id="txtWeb">
+								<div class="valid-feedback">Va bien!</div>
+								<div class="invalid-feedback">Ingrese el valor!</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="mb-3">
+						<div class="form-switch">
+							<input class="form-check-input" type="checkbox" id="chekboxActive" checked>
+							<label class="form-check-label" for="chekboxActive">Activo</label>
+						</div>
+					</div>
+					
+					<div class="mb-3" id="ajaxResponseContainer"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<button type="submit" id="btnSend" class="btn btn-primary">Crear</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

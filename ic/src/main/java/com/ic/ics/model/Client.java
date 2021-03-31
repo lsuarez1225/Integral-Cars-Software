@@ -3,6 +3,8 @@ package com.ic.ics.model;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,13 +14,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 
 @Entity
-@Table(name = "client")
+@Table(name = "clients")
 public class Client {
 	
 	@Id
@@ -26,12 +30,9 @@ public class Client {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "nid_type", referencedColumnName = "id")
 	private NidType nidType;
-	
-	@Transient
-	private String nidTypeName;
 	
 	@Column(name = "nid")
 	private String nid;
@@ -71,6 +72,18 @@ public class Client {
 	
 	@Column(name = "direction")
 	private String direction;
+	
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "clients_vehicles", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "vehicle_id"))
+	private Set<Vehicle> vehicle;
+
+	public Set<Vehicle> getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(Set<Vehicle> vehicle) {
+		this.vehicle = vehicle;
+	}
 
 	public long getId() {
 		return id;
@@ -86,10 +99,6 @@ public class Client {
 	
 	public void setNidType(NidType nidType) {
 		this.nidType = nidType;
-	}
-	
-	public String getNidTypeName() {
-		return nidType.getName();
 	}
 
 	public String getNid() {

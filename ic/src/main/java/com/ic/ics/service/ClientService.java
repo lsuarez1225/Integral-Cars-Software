@@ -2,6 +2,7 @@ package com.ic.ics.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,10 @@ public class ClientService {
 	
 	public void saveClient (Client client) {
 		clientRepository.save(client);
+	}
+	
+	public Optional<Client> getClient (Long id) {
+		return clientRepository.findById(id);
 	}
 	
 }
